@@ -1,0 +1,16 @@
+{
+    "keywords": [
+        "youtube",
+        "lyrics",
+        "instagram",
+        "facebook",
+        "reddit"
+    ],
+
+    "processes": [
+        "msedge.exe",
+        "chrome.exe"
+    ],
+
+    "reminder_delay": 10
+}

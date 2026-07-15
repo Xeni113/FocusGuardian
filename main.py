@@ -8,7 +8,11 @@ import time
 previous_pid = None
 previous_title = None
 
-timer = TimerEngine()
+from src.rule_engine import config
+
+timer = TimerEngine(
+    reminder_delay=config["reminder_delay"]
+)
 
 while True:
     info = get_active_window_info()

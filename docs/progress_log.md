@@ -89,3 +89,24 @@ Stored:
 
 ### GitHub
 Initial commit pushed successfully.
+
+## v0.2 — Configurable Rule Engine
+Date: 15 July 2026
+
+### Completed
+- Moved distraction keywords into external JSON configuration
+- Moved monitored processes into external JSON configuration
+- Added configurable reminder delay
+- Refactored rule engine to load settings dynamically
+- Verified compatibility with existing popup system
+
+### Files Added
+config/rules.json
+data/stats.json
+
+### Files Modified
+src/rule_engine.py
+main.py
+
+### Status
+Stable and tested successfully.
