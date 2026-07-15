@@ -1,3 +1,5 @@
+from src.overlay_engine import show_reminder
+
 import time
 
 from src.detector import get_active_window_info
@@ -23,7 +25,9 @@ while True:
             )
 
             if timer.update(target):
-                print("\n⏰ REMINDER SHOULD APPEAR NOW\n")
+                show_reminder(
+    f"You have been distracted by:\n\n{target}\n\nReturn to your task."
+)
 
         else:
             timer.reset()
