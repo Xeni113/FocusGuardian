@@ -1,3 +1,4 @@
+from src.stats_engine import record_distraction
 from src.overlay_engine import show_reminder
 from src.detector import get_active_window_info
 from src.rule_engine import is_monitored
@@ -29,6 +30,8 @@ while True:
 
             # Trigger popup after timer expires
             if timer.update(target):
+                record_distraction(info)
+                
                 show_reminder(
                     f"You have been distracted by:\n\n"
                     f"{target}\n\n"

@@ -1,6 +1,7 @@
 {
-    "total_distractions": 0,
-    "total_reminders": 0,
-    "applications": {},
-    "websites": {}
+    "2026-07-15": {
+        "youtube": 1,
+        "reddit": 1,
+        "msedge.exe": 2
+    }
 }
