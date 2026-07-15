@@ -1,0 +1,14 @@
+{
+    "monitored_processes": [
+        "discord.exe",
+        "steam.exe"
+    ],
+
+    "monitored_keywords": [
+        "youtube",
+        "instagram",
+        "reddit"
+    ],
+
+    "reminder_interval_seconds": 300
+}
