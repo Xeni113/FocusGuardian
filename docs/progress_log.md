@@ -31,3 +31,61 @@ Build an AI-assisted productivity system capable of detecting distractions and r
 
 ### Next target
 Implement actual popup reminder window using Tkinter.
+
+
+# FocusGuardian Development Log
+
+---
+
+## 15 July 2026 — Project Initialization
+
+### Completed
+- Created project architecture
+- Created detector engine using:
+  - win32gui
+  - win32process
+  - psutil
+- Successfully detects:
+  - active process name
+  - active window title
+  - process PID
+  - timestamp
+
+### Rule Engine
+- Implemented process-based monitoring
+- Implemented keyword-based monitoring
+- Added configurable JSON rules
+
+### Timer Engine
+- Built distraction duration tracker
+- Tracks continuous exposure to distractions
+- Supports configurable reminder intervals
+
+### Overlay Engine
+- Implemented tkinter popup overlay
+- Added always-on-top reminder window
+- Added "Back to Work" button
+
+### Integration
+- Connected:
+  Detector → Rule Engine → Timer → Overlay
+
+### Successful Demonstration
+Verified working with:
+- YouTube
+- Music videos
+- Browser distractions
+
+System successfully:
+1. Detects distraction.
+2. Tracks duration.
+3. Displays reminder popup.
+4. Resets timer after returning to work.
+
+### Evidence
+Stored:
+- screenshots/
+- videos/
+
+### GitHub
+Initial commit pushed successfully.
