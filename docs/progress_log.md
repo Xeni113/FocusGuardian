@@ -110,3 +110,248 @@ main.py
 
 ### Status
 Stable and tested successfully.
+
+
+
+# FocusGuardian Development Log
+
+## Milestone — Core Analytics & Automated Testing
+
+**Status:** Completed  
+**Git Commit:** `0ebc7a2`
+
+### Overview
+
+This milestone significantly expanded FocusGuardian from a basic distraction-monitoring system into a modular focus analytics platform.
+
+The application can now track distraction activity, measure distraction sessions, calculate a weighted Focus Score, adapt reminder frequency, generate reports, and evaluate focus streaks.
+
+A complete automated pytest suite was also introduced to protect the core analytics logic from regressions.
+
+---
+
+## Major Features Added
+
+### 1. Adaptive Reminder Engine
+
+Implemented an adaptive reminder system that changes reminder frequency according to the user's distraction count and current Focus Score.
+
+Higher distraction levels result in more frequent reminders.
+
+The system currently supports reminder intervals ranging from 60 seconds for low distraction levels down to 5 seconds during severe focus loss.
+
+---
+
+### 2. Weighted Focus Score Engine
+
+Implemented a Focus Score ranging from 0 to 100.
+
+Different distraction categories have different penalties.
+
+Examples include:
+
+- YouTube
+- Reddit
+- Instagram
+- Spotify
+- Facebook
+- Twitter/X
+- Browser-level distractions
+
+This allows FocusGuardian to evaluate distraction severity rather than treating every distraction equally.
+
+The score is prevented from dropping below zero.
+
+---
+
+### 3. Session Tracking
+
+Added a session engine capable of tracking how long the user remains inside a distracting activity.
+
+The system can:
+
+- Start a distraction session
+- Maintain the active session while the same distraction continues
+- Finish the session when the user leaves the distraction
+- Track the session duration
+- Support transitions between distraction targets
+
+This makes FocusGuardian capable of measuring both distraction frequency and distraction duration.
+
+---
+
+### 4. Time Statistics
+
+Added persistent time-statistics tracking for distraction sessions.
+
+This creates the foundation for future analytics such as:
+
+- Total distraction time
+- Daily distraction duration
+- Category-specific time usage
+- Long-term focus trends
+
+---
+
+### 5. Daily Report Engine
+
+Implemented daily reporting capable of calculating:
+
+- Total distractions
+- Most frequent distraction
+- Category breakdown
+
+The report system also handles dates for which no statistics are available.
+
+---
+
+### 6. Weekly Report Engine
+
+Implemented aggregation of distraction statistics across multiple days.
+
+The weekly report provides:
+
+- Total distractions
+- Category totals
+- Worst distraction category
+
+An empty-data edge case was also fixed so that the reporting engine safely returns:
+
+- Total: 0
+- Worst category: None
+- Categories: empty
+
+instead of failing.
+
+---
+
+### 7. Focus Streak Engine
+
+Implemented focus streak calculation.
+
+A day contributes to the streak when its Focus Score satisfies the configured streak threshold.
+
+The streak engine was refactored to use the main Focus Score Engine instead of maintaining a separate scoring formula.
+
+This establishes the Focus Score Engine as the single source of truth for focus evaluation.
+
+---
+
+## Architecture Improvement
+
+Previously, FocusGuardian contained two different interpretations of focus quality:
+
+1. The Focus Score Engine used category-specific weighted penalties.
+2. The Streak Engine used a separate `100 - distractions × 10` calculation.
+
+This could produce contradictory results.
+
+The architecture was refactored so that:
+
+Distraction Statistics
+        ↓
+Focus Score Engine
+        ↓
+Canonical Focus Score
+        ↓
+Streak Engine
+
+This eliminates duplicated scoring logic and improves consistency across the application.
+
+---
+
+## Automated Testing
+
+The previous manual test scripts were converted into a proper automated pytest test suite.
+
+The suite currently tests:
+
+- Adaptive reminder behavior
+- Focus Score calculations
+- Weighted distraction penalties
+- Score boundaries
+- Unknown-category handling
+- Daily report generation
+- Missing report data
+- Streak calculation
+- Streak threshold boundaries
+- Chronological streak processing
+- Weekly report aggregation
+- Empty weekly statistics
+- Other analytics edge cases
+
+### Final Test Result
+
+32 tests collected  
+32 tests passed  
+0 tests failed
+
+This establishes an automated regression-testing foundation for future development.
+
+---
+
+## Repository Cleanup
+
+The repository was also cleaned for proper Git version control.
+
+Ignored development/runtime artifacts include:
+
+- `.venv/`
+- `__pycache__/`
+- `.pytest_cache/`
+- Python bytecode files
+- Generated runtime time-statistics data
+
+A `.gitkeep` file preserves the required data directory structure without requiring generated runtime files to be committed.
+
+---
+
+## Verification
+
+Before this milestone was committed:
+
+- Python modules compiled successfully
+- Automated tests passed
+- Git staged changes were manually inspected
+- Accidental temporary files were removed
+- Runtime statistics were excluded from the milestone commit
+- Repository working tree was verified after the push
+
+Final verification:
+
+`32 passed`
+
+---
+
+## Git Checkpoint
+
+Commit:
+
+`0ebc7a2`
+
+Commit message:
+
+`feat: add focus analytics engines and automated test suite`
+
+The milestone was successfully pushed to the main GitHub branch.
+
+---
+
+## Current State
+
+FocusGuardian now has a substantially more mature core foundation consisting of:
+
+- Windows distraction detection
+- Rule-based classification
+- Reminder overlays
+- Adaptive reminder timing
+- Distraction statistics
+- Weighted Focus Score
+- Session tracking
+- Time tracking
+- Daily reports
+- Weekly reports
+- Focus streaks
+- Automated regression testing
+
+The next development stage will focus on completing remaining core reliability work before beginning the dedicated UI/UX layer.
