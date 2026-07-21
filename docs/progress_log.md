@@ -355,3 +355,103 @@ FocusGuardian now has a substantially more mature core foundation consisting of:
 - Automated regression testing
 
 The next development stage will focus on completing remaining core reliability work before beginning the dedicated UI/UX layer.
+
+
+
+## Core Reliability & Regression Testing Milestone
+
+### Status
+Completed
+
+### Summary
+
+FocusGuardian's core foundation underwent a major reliability and regression-testing pass before beginning UI/UX development.
+
+The automated test suite was expanded from 32 tests to 107 tests, covering the application's major core engines and edge cases.
+
+### Tested Components
+
+- Adaptive reminder engine
+- Focus score engine
+- Daily report engine
+- Weekly report engine
+- Streak engine
+- Session tracking engine
+- Time statistics engine
+- Statistics and classification engine
+- Rule engine
+- Timer engine
+
+### Session Reliability
+
+Session tracking was verified for:
+
+- Starting a distraction session
+- Maintaining the same session while the target remains active
+- Ending sessions when leaving a distraction
+- Switching between different targets
+- Creating independent sessions for repeated visits
+- Correct duration calculations
+- Protection against negative durations
+
+### Timer Reliability
+
+The timer engine was hardened to safely handle:
+
+- New monitored targets
+- Repeated monitoring of the same target
+- Reminder threshold expiration
+- Timer restart after reminders
+- Switching targets
+- Reset operations
+- No active target (`None`)
+- Recovery from missing timer state
+
+### Rule Engine Reliability
+
+The rule engine was hardened against incomplete or malformed detection data, including:
+
+- Missing process names
+- Missing window titles
+- Empty detection information
+- `None` input
+- Missing configuration sections
+- Case-insensitive process and keyword matching
+
+### Statistics Reliability
+
+Statistics tests now verify:
+
+- Missing statistics files
+- Existing statistics files
+- Corrupted JSON recovery
+- Statistics persistence
+- Category classification
+- Productive-site classification
+- Browser classification
+- Repeated distraction accumulation
+- Preservation of previous days
+- Daily event totals
+
+### Integration Verification
+
+A real Windows integration test confirmed:
+
+- Active-window detection
+- Browser detection
+- YouTube classification
+- Distraction recording
+- Focus-score calculation
+- Adaptive reminder-delay calculation
+- Continuous session tracking
+- Correct session termination
+- Time-statistics persistence
+- Safe handling of non-distracting browser activity
+- Clean application shutdown
+
+During integration testing, a YouTube session was successfully tracked for approximately 28 seconds and correctly terminated after leaving the target.
+
+### Automated Test Result
+
+```text
+107 passed in 0.14s
